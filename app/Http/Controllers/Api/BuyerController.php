@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Store;
 use Validator;
 use App\Models\User;
+use App\Models\Category;
 use Hash;
-
+use App\Models\Review;
 class BuyerController extends Controller
 {
     public function latest()
@@ -39,5 +40,21 @@ class BuyerController extends Controller
         $user->role=$request->role;
         $user->update();
         return response()->json(['success'=>'User record updated successfully']);
+    }
+    public function filterCategory(Request $request)
+    {
+        $name=$request->title;
+        if(isset($name)){
+            $category=Category::where('title','LIKE',"%$name%")->get();
+            return response()->json(['success'=>$category]);    
+        }else{
+            return response()->json(['success'=>'something has wrong']);
+        }        
+    }
+    public function popularStore()
+    {
+        $review=Review::with('stores')->orderBy('rate','desc')->first();
+        $reviewsData=$review->stores->business_name;
+        return response()->json(['Popular Store'=>$reviewsData]);
     }
 }

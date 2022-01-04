@@ -112,7 +112,7 @@ class StoreController extends Controller
         $store->company_capacity=$request->company_capacity;
         $store->reference=$request->reference;
         $store->update();
-        return response()->json(['success'=>'product updated successfully']);
+        return response()->json(['success'=>'Store has been successfully updated']);
 
     }
 

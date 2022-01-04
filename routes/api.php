@@ -8,6 +8,8 @@ use App\Http\Controllers\Api\StoreController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\StoreCategoryController;
 use App\Http\Controllers\Api\BuyerController;
+use App\Http\Controllers\Api\ReviewController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -63,6 +65,12 @@ Route::group([
         Route::get('/latest/store',[BuyerController::class,'latest'])->name('latest.store');
         Route::post('/profile/update',[BuyerController::class,'profileUpdate'])->name('profile.update');
         Route::get('/store/detail',[BuyerController::class,'storeDetail'])->name('store.detail');
+        Route::post('/filter/category',[BuyerController::class,'filterCategory'])->name('filter.category');
+        Route::get('/popular/store',[BuyerController::class,'popularStore'])->name('popular.store');
+    });
+    Route::group(['prefix'=>'review/'],function(){
+        Route::post('store',[ReviewController::class,'store'])->name('review.store');
+        Route::get('list',[ReviewController::class,'index'])->name('review.list');
     });
     
 
